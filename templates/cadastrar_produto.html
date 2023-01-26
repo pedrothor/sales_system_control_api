@@ -1,0 +1,27 @@
+{% include 'base.html' %}
+<br>
+<br>
+<div class="d-flex justify-content-center align-items-center">
+  <h2>Cadastro de Produtos</h2>
+</div>
+<br>
+<br>
+
+<div class="d-flex justify-content-center align-items-center">
+  {% load bootstrap5 %}
+  {% bootstrap_css %}
+  {% bootstrap_javascript %}
+  {% bootstrap_messages %}
+</div>
+
+<form action="{% url 'cadastrar-produto' %}" class="row g-3" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+  <div style="width: 40%; margin: 0 auto;">
+    {{ form.as_p }}
+    <div class="d-flex flex-direction-row justify-content-center" style="gap: 20px;">
+        <button type="submit" class="btn btn-success">Cadastrar</button>
+        <button type="button" class="btn btn-warning"><a href="{% url 'initial' %}" style="text-decoration:none; color:white;">Cancelar</a></button>
+    </div>
+  </div>
+    <br>
+</form>

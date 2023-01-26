@@ -1,0 +1,49 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{% static 'img/jornada_ico.png' %}"/>
+    <title>Jornada Python - Projeto Vendas</title>
+</head>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <img width="13%" height="10%" src="{% static 'img/jornada_navbar.png' %}" style="position:relative;">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" style="margin-left: 25%;" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="font-size: 20px;">
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'initial' %}">Home</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'lista-funcionarios' %}">Funcionários</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'lista-produtos' %}">Produtos</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'lista-vendas' %}">Vendas</a>
+        </li>
+      </ul>
+      <form method="POST" action="{% url 'busca-produto' %}" class="d-flex">
+        {% csrf_token %}
+        <input class="form-control me-2" name="searched" type="search" placeholder="Buscar produto" aria-label="Buscar produto">
+        <button class="btn btn-outline-success"  type="submit">Buscar</button>
+      </form>
+    </div>
+  </div>
+</nav>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" crossorigin="anonymous"></script>
+</html>

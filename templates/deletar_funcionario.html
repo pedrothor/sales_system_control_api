@@ -1,0 +1,14 @@
+{% include 'base.html' %}
+
+<hr>
+<div class="d-flex justify-content-center align-items-center">
+  <h2>Você tem certeza que deseja DELETAR o funcionário {{ nome_full }} ?</h2>
+</div>
+<hr>
+<form action="{% url 'deletar-funcionario' funcionario.id %}" method="POST" class="d-flex justify-content-center">
+    {% csrf_token %}
+    <hr>
+    <button type="submit" class="btn btn-danger" style="margin-right: 15px;"><a style="text-decoration: none; color: white;">Deletar</a></button>
+    <button type="submit" class="btn btn-warning"><a href="{% url 'lista-funcionarios' %}" style="text-decoration: none; color: white;">Cancelar</a></button>
+    <hr>
+</form>

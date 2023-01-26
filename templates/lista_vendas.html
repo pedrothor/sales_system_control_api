@@ -1,0 +1,45 @@
+{% include 'base.html' %}
+
+<div class="d-flex justify-content-center">
+    <div class="alert alert-secondary" role="alert" style="width: 90%; margin-top: 4%;">
+      <h4 class="d-flex justify-content-center alert-heading" style="color: white;">Vendas</h4>
+      <div class="container">
+        <div class="d-flex justify-content-flex-end" style="margin-left: 85%;">
+          <button class="btn btn-primary"><a href="{% url 'cadastrar-venda' %}" style="text-decoration: none; color: white;">Cadastrar Venda</a></button>
+        </div>
+      </div>
+      <br>
+        {% load bootstrap5 %}
+        {% bootstrap_css %}
+        {% bootstrap_javascript %}
+        {% bootstrap_messages %}
+        <div  style="text-align:center;">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th scope="col">Funcionário</th>
+                <th scope="col">Produto</th>
+                <th scope="col">Quantidade</th>
+                <th scope="col">Preço do Produto</th>
+                <th scope="col" style="color: green;">Valor Total</th>
+                <th scope="col">Descrição</th>
+                <th scope="col">Data e Hora</th>
+              </tr>
+            </thead>
+            <tbody>
+            {% for venda in vendas %}
+              <tr>
+                <td>{{venda.funcionario}}</td>
+                <td>{{venda.produto|title}}</td>
+                <td>{{venda.quantidade}}</td>
+                <td>{{venda.produto.preco}}</td>
+                <td style="color: green;">{{ venda.valor_venda }}</td>
+                <td>{{venda.descricao}}</td>
+                <td>{{venda.data_hora}}</td>
+              </tr>
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+    </div>
+</div>

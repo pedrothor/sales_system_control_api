@@ -1,0 +1,21 @@
+{% include 'base.html' %}
+
+<hr>
+<div class="d-flex justify-content-center align-items-center">
+  <h2>Editando informações de {{ nome_funcionario }}</h2>
+    <hr>
+</div>
+
+<form method="POST">
+    {% csrf_token %}
+
+    <div class="d-flex justify-content-center">
+        <div class="alert alert-light" role="alert" style="width: 60%; height: 550px; margin-top: 4%;">
+            {{ form.as_p }}
+            <hr>
+            <button type="submit" class="btn btn-success" style="margin-right: 15px;"><a style="text-decoration: none; color: white;">Editar</a></button>
+            <button type="submit" class="btn btn-warning"><a href="{% url 'lista-funcionarios' %}" style="text-decoration: none; color: white;">Cancelar</a></button>
+          <hr>
+        </div>
+    </div>
+</form>

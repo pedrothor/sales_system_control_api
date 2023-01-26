@@ -1,0 +1,63 @@
+{% include 'base.html' %}
+
+
+{% block content %}
+    <body>
+        <div class="d-flex flex-direction-row justify-content-center" style="gap: 10%;">
+            <div class="alert alert-primary" role="alert" style="width: 20%; margin-top: 4%;">
+              <h4 class="d-flex justify-content-center alert-heading" style="color: white;">Funcionários</h4>
+                <p class="d-flex justify-content-center " style="color: yellow;">Funcionários da empresa.</p>
+              <hr>
+              <div class="d-flex justify-content-center" style="gap: 20px;">
+                  <button type="button" class="btn btn-primary" onclick="location.href={% url 'cadastro-funcionario' %}">Cadastrar</button>
+                  <button type="button" class="btn btn-primary" style="margin-left: 10px;" onclick="location.href={% url 'lista-funcionarios' %}">Listar</button>
+              </div>
+            </div>
+
+            <div class="alert alert-primary" role="alert" style="width: 20%; margin-top: 4%;">
+              <h4 class="d-flex justify-content-center alert-heading" style="color: white;">Produtos</h4>
+                <p class="d-flex justify-content-center " style="color: yellow;">Produtos da empresa.</p>
+              <hr>
+              <div class="d-flex justify-content-center" style="gap: 20px;">
+                  <button type="button" class="btn btn-primary"><a href="{% url 'cadastrar-produto' %}" style="text-decoration: none; color: white;">Cadastrar</a></button>
+                  <button type="button" class="btn btn-primary" style="margin-left: 10px;"><a href="{% url 'lista-produtos' %}" style="text-decoration: none; color: white;">Listar</a></button>
+              </div>
+            </div>
+
+            <div class="alert alert-primary" role="alert" style="width: 20%; margin-top: 4%;">
+              <h4 class="d-flex justify-content-center alert-heading" style="color: white;">Vendas</h4>
+                <p class="d-flex justify-content-center " style="color: yellow;">Vendas da empresa.</p>
+              <hr>
+              <div class="d-flex justify-content-center" style="gap: 20px;">
+                  <button type="button" class="btn btn-primary"><a href="{% url 'cadastrar-venda'%}" style="text-decoration: none; color: white;">Cadastrar</a></button>
+                  <button type="button" class="btn btn-primary" style="margin-left: 10px;"><a href="{% url 'lista-vendas'%}" style="text-decoration: none; color: white;">Listar</a></button>
+              </div>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-center">
+            <div class="alert alert-secondary" role="alert" style="width: 90%; margin-top: 4%;">
+              <h4 class="alert-heading" style="color: white;">Ranking Vendas</h4>
+              <br>
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th scope="col">Funcionário</th>
+                      <th scope="col">Total em vendas</th>
+                      <th scope="col">Produto mais vendido</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for f in ranking_pronto_formatado %}
+                    <tr>
+                      <td>{{f.0|title}}</td>
+                      <td>{{f.1}}</td>
+                      <td>{{f.2|title}}</td>
+                    </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+{% endblock %}

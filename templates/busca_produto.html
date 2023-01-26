@@ -1,0 +1,45 @@
+{% include 'base.html' %}
+
+{% if searched %}
+  <br>
+  <h2 class="d-flex justify-content-center alert-heading" style="color: white;">Você procurou por '{{ searched }}'</h2>
+  <div class="d-flex justify-content-center">
+      <div class="alert alert-secondary" role="alert" style="width: 90%; margin-top: 4%;">
+        {% for produto in estoque_filtrado %}
+          <div class="container">
+          <br>
+            {% load bootstrap5 %}
+            {% bootstrap_css %}
+            {% bootstrap_javascript %}
+            {% bootstrap_messages %}
+            <div class="d-flex justify-content-center">
+              <div class="card border-secondary mb-3" style="width: 50rem; height: 45rem; text-align: center;">
+                <div class="card-header" style="font-size: 30px;">{{ produto.produto|title }}</div>
+                    <br>
+                    {% if produto.imagem_produto %}
+                      <div class="d-flex justify-content-center">
+                        <img src="{{ produto.imagem_produto.url }}" style="width: 400px; height: 350px;">
+                      </div>
+                    {% endif %}
+                    <br>
+                  <div class="card-body text-secondary">
+                    <h5 class="card-title" style="font-size: 35px; color: red;">{{ produto.preco }}</h5>
+                    <p class="card-text" style="color: white;">{{ produto.quantidade }} unidades em estoque</p>
+                    <p class="card-text" style="color: white;">{{ produto.descricao }}</p>
+                    <button type="button" class="btn btn-success btn-lg" onclick="location.href={% url 'cadastrar-venda' %}">Comprar</button>
+                  </div>
+              </div>
+            </div>
+          </div>
+        <div class="d-flex justify-content-center">
+          <hr style="color: orange; width: 40%; height: 2px;">
+        </div>
+        {% endfor %}
+      </div>
+  </div>
+
+{% else %}
+  <div class="d-flex justify-content-center" style="margin-top: 5%;">
+    <h1>Escreva algo para buscar...</h1>
+  </div>
+{% endif %}
