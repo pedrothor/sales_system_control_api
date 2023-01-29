@@ -16,14 +16,8 @@
               new Chart(ctx, {
                 type: 'bar',
                 data: {
-                  labels: {{label|safe}},
-                  datasets: [{
-                    label: 'Teste01',
-                    data: {Jan: 10, Fev: 5, Mar: 7, Abr: 2},},
-                    {
-                    label: 'Teste02',
-                    data: {Jan: 20, Fev: 15, Mar: 17, Abr: 23},
-                    }],
+                  labels: {{meses|safe}},
+                  datasets: {{ info|safe }},
                 options: {
                   scales: {
                     y: {

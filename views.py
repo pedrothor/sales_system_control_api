@@ -10,12 +10,13 @@ locale.setlocale(locale.LC_MONETARY, 'pt_BR.UTF-8')
 def initial(request):
     vendas = Venda.objects.all()
     funcionarios_vendas = [{f'{venda.funcionario}': {'receita': float(venda.produto.preco * int(venda.quantidade)),
-                                                     'produto': {venda.produto.produto: int(venda.quantidade), }, }} for venda in vendas]
+                                                     'produto': {venda.produto.produto: int(venda.quantidade), }, }} for
+                           venda in vendas]
 
     ranking = dict()
     # para cada funcionario e suas vendas
     for funcionario_venda in funcionarios_vendas:
-            # separando o funcionario de sua venda
+        # separando o funcionario de sua venda
         for funcionario, informacoes in funcionario_venda.items():
             # se o funcionario já foi posto no ranking
             if funcionario in ranking:
@@ -24,9 +25,11 @@ def initial(request):
                 # list(informacoes['produto'].values())[0] pegando a quantidade de produto relacionada a venda feita
                 # se o produto já foi computado em uma venda anterior, apenas somando a nova quantidade à antiga.
                 if list(informacoes['produto'].keys())[0] in list(ranking[funcionario]['produto'].keys()):
-                    ranking[funcionario]['produto'][list(informacoes['produto'].keys())[0]] += list(informacoes['produto'].values())[0]
+                    ranking[funcionario]['produto'][list(informacoes['produto'].keys())[0]] += \
+                    list(informacoes['produto'].values())[0]
                 else:
-                    ranking[funcionario]['produto'][list(informacoes['produto'].keys())[0]] = list(informacoes['produto'].values())[0]
+                    ranking[funcionario]['produto'][list(informacoes['produto'].keys())[0]] = \
+                    list(informacoes['produto'].values())[0]
             # caso funcionario ainda não esteja no ranking
             else:
                 ranking[funcionario] = informacoes
@@ -53,7 +56,28 @@ def initial(request):
 
     ranking_pronto_formatado = formata_ranking(ranking_pronto)
 
-    context = {'ranking_pronto_formatado': ranking_pronto_formatado}
+    # procurando se já foi computada uma venda do funcionario, caso sim, retorne-a
+    def procura_funcionario(f, lista):
+        for i in lista:
+            if i['label'] == f:
+                return i
+        return None
+    meses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez']
+    vendas = Venda.objects.all()
+    info = []
+    for venda in vendas:
+        func = venda.funcionario.nome
+        mes = venda.data_hora.month
+        if procura_funcionario(func, info) is None:
+            info.append({'label': str(func), 'data': {meses[mes-1]: int(venda.quantidade)}})
+        else:
+            procura_funcionario(func, info)['data'][meses[mes-1]] += int(venda.quantidade)
+
+    context = {
+        'ranking_pronto_formatado': ranking_pronto_formatado,
+        'meses': meses,
+        'info': info,
+    }
 
     return render(request, 'index.html', context)
 
@@ -281,4 +305,3 @@ def busca_produto(request):
         context = {
         }
         return render(request, 'busca_produto.html', context)
-
