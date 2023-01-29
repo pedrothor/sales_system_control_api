@@ -72,7 +72,7 @@ def initial(request):
             info.append({'label': str(func), 'data': {meses[mes-1]: int(venda.quantidade)}})
         else:
             procura_funcionario(func, info)['data'][meses[mes-1]] += int(venda.quantidade)
-
+            
     context = {
         'ranking_pronto_formatado': ranking_pronto_formatado,
         'meses': meses,
